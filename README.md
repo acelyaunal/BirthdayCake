@@ -52,8 +52,6 @@ Bu proje tamamen saf web teknolojileriyle geliştirildi — framework veya küt�
 | -------------------------------- | ------------------------------------- | ---------------------------- |
 | ![Açılış](cake/acilisekrani.png) | ![Düzenleme](cake/pastaduzenleme.png) | ![Kutlama](cake/kutlama.png) |
 
-Ek olarak, proje klasörümün Finder görünümü 👇
-![Klasör Görünümü](Ekran%20Resmi%202025-10-24%2012.30.33.png)
 
 ---
 
