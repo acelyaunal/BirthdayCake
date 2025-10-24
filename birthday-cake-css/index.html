@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#ff6d57" />
+  <title>Happy Birthday 🎂</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="revealZone" style="position:fixed;inset:auto 0 0 0;top:0;height:18px;z-index:29;" aria-hidden="true"></div>
+
+  <header id="toolbar" class="toolbar collapsed" aria-label="Üst araç çubuğu">
+    <button id="toolbarToggle" class="toolbar-toggle" aria-expanded="false" aria-controls="toolbarTray" title="Araç çubuğunu aç/kapat">☰</button>
+
+    <div id="toolbarTray" class="toolbar-tray" role="group" aria-hidden="true">
+      <div class="tray-left">
+        <button id="replayBtn" type="button" title="Animasyonu tekrar et">↺ Tekrarla</button>
+        <button id="controlsToggle" type="button" aria-controls="controls" aria-expanded="false" title="Pasta ayarlarını aç/kapat">⚙️ Ayarlar</button>
+      </div>
+
+      <div class="tray-center" role="group" aria-label="Paylaşım ve çıktı">
+        <label for="shapeSelect" class="visually-hidden">Konfeti şekli</label>
+        <select id="shapeSelect" aria-label="Konfeti şekli">
+          <option value="mix" selected>Karışık</option>
+          <option value="square">Kare</option>
+          <option value="circle">Daire</option>
+          <option value="triangle">Üçgen</option>
+          <option value="star">Yıldız</option>
+          <option value="heart">Kalp</option>
+        </select>
+        <button id="reelsBtn" type="button" title="Reels modunu aç/kapat">Reels</button>
+        <button id="pngBtn" type="button" title="Kartı PNG olarak indir">PNG</button>
+        <button id="waBtn" type="button" title="WhatsApp ile paylaş">WhatsApp</button>
+      </div>
+
+      <div class="tray-right theme-switch" role="group" aria-label="Tema seç">
+        <button type="button" data-theme="peach" class="active" aria-pressed="true">Pembe</button>
+        <button type="button" data-theme="mint" aria-pressed="false">Mint</button>
+        <button type="button" data-theme="night" aria-pressed="false">Gece</button>
+        <button id="balloonBtn" type="button" class="chip" title="Balonlar">● Balonlar</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage" role="main">
+    <div id="balloonLayer" aria-hidden="true"></div>
+
+    <section class="card" id="card" aria-labelledby="title">
+      <div class="cake-svg shadow-plate" id="cakeWrap">
+        <svg id="cake" viewBox="0 0 320 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Doğum günü pastası">
+          <rect id="plate" x="120" y="232" width="80" height="6" rx="3" />
+          <g id="layers"></g>
+          <g id="frosting" style="--frostDelay: .85s;">
+            <path id="creamPath" class="cream-path"></path>
+            <g id="dripDots"></g>
+          </g>
+          <g id="candles"></g>
+        </svg>
+      </div>
+
+      <h2 class="title" id="title">happy birthday!</h2>
+
+      <form id="nameForm" class="name-form" autocomplete="off">
+        <label for="nameInput" class="visually-hidden">İsim</label>
+        <input id="nameInput" type="text" inputmode="text" maxlength="30" placeholder="İsmi yaz" aria-label="İsim" />
+        <button type="submit" id="celebrateBtn">Kutla</button>
+      </form>
+
+      <p id="nameText" class="name-text" aria-live="polite"></p>
+    </section>
+
+    <aside id="controls" class="controls controls--left hidden" aria-labelledby="controlsTitle">
+      <div class="controls-header">
+        <span id="controlsTitle" class="ctrl-title">Pasta Ayarları</span>
+        <button id="collapseBtn" type="button" aria-expanded="true" aria-controls="controlsGrid" title="Paneli daralt/aç">▾</button>
+      </div>
+
+      <div class="grid" id="controlsGrid">
+        <div class="row">
+          <label for="layerCount">Kat sayısı</label>
+          <span id="layerCountVal" class="ctrl-val">3</span>
+          <input id="layerCount" type="range" min="1" max="6" value="3" />
+        </div>
+
+        <div class="row">
+          <label for="dripCount">Dalga sayısı</label>
+          <span id="dripCountVal" class="ctrl-val">4</span>
+          <input id="dripCount" type="range" min="1" max="8" value="4" />
+        </div>
+
+        <div class="row">
+          <label for="dripLen">Dalga boyu</label>
+          <span id="dripLenVal" class="ctrl-val">14</span>
+          <input id="dripLen" type="range" min="6" max="28" value="14" />
+        </div>
+
+        <div class="row">
+          <label for="candleCount">Mum sayısı</label>
+          <span id="candleCountVal" class="ctrl-val">1</span>
+          <input id="candleCount" type="range" min="0" max="7" value="1" />
+        </div>
+
+        <div class="row colors">
+          <label for="creamColor">Krema</label>
+          <input id="creamColor" type="color" value="#f3f1ee" />
+          <label for="cakeDark">Koyu Kat</label>
+          <input id="cakeDark" type="color" value="#6f594b" />
+          <label for="cakeLight">Açık Kat</label>
+          <input id="cakeLight" type="color" value="#a88571" />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="randBtn" type="button" title="Rastgele görünüm">🎲 Rastgele</button>
+        <button id="resetBtn" type="button" title="Varsayılana dön">↺ Sıfırla</button>
+      </div>
+    </aside>
+  </main>
+
+  <style>
+    .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+  </style>
+</body>
+</html>
